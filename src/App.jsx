@@ -3,40 +3,41 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Route,
-  Link,
 } from "react-router-dom";
-import QuestionPaper from './pages/questionPaper'
-import UserForm from './pages/userForm'
+import UserForm from "./pages/userForm";
 
 // material ui
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from '@mui/material';
+
+import { createTheme, ThemeProvider} from '@mui/material/styles';
+
+import Login from "./pages/login";
+import Dashboard from "./pages/dashboard";
+import Navbar from "./components/navbar";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route index element={<UserForm />} />
-      <Route path="questions" element={<QuestionPaper />} />
+    <Route path="/" element={<Login />}>
+      <Route path="/" element={<Dashboard />} />
+      {/* <Route path="login" element={<UserForm />} /> */}
     </Route>
   )
-)
+);
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#272829",
+    },
+  },
   typography: {
-    fontFamily: 'Poppins, sans-serif'
+    fontFamily: "Poppins, sans-serif",
   },
 });
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="lg">
-        <Typography variant="h5" align="center"> Exam Portal </Typography>
-        <RouterProvider router={router} />
-      </Container>
+      <RouterProvider router={router} />
     </ThemeProvider>
-
-  )
+  );
 }
 
-export default App
+export default App;

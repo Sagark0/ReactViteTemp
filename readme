@@ -1,3 +1,5 @@
+This is a repository contains packages modules and all boilerplate codes to create react app with vite, react-router, Axios, login page template, material UI integration etc.
+
 to start the client:
 1. run 'npm install' to install all modules.
 2. run 'npm run dev' to start server.

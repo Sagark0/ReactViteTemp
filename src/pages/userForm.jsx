@@ -7,6 +7,7 @@ import {
   getRedirectResult,
   signInWithPopup,
   GoogleAuthProvider,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 // Material UI Components
 import { Box } from "@mui/material";
@@ -25,17 +26,18 @@ function UserForm() {
 
   const navigate = useNavigate();
 
-  const handleUserFormSubmit = () => {
+  const handleLoginWithGoogle = () => {
     setLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
     .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
         navigate("/", { replace: true });
         // IdP data available using getAdditionalUserInfo(result)
+        const adData = getAdditionalUserInfo(result)
+        console.log(adData)
         setLoading(false);
       })
       .catch((error) => {
@@ -105,7 +107,7 @@ function UserForm() {
             <LoadingButton
               variant="contained"
               startIcon={<GoogleIcon />}
-              onClick={handleUserFormSubmit}
+              onClick={handleLoginWithGoogle}
               loading={loading}
             >
               Login With Google

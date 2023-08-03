@@ -5,6 +5,7 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 
 // material ui
 import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -32,24 +33,38 @@ const Navbar = () => {
         console.log(error);
       });
   };
-  
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {user && (
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           BlockChain
         </Typography>
         {user ? (
-          <Button color="inherit" onClick={handleSignOut}> Logout</Button>
+          <>
+            <Avatar
+              alt={user.displayName}
+              src={user.photoURL}
+              sx={{ width: 45, height: 45, mx: 1 }}
+            />
+            <Typography variant="overline" sx={{ mr: 2 ,textTransform: 'lowercase'}}>
+              {user.email}
+            </Typography>
+            <Button color="error" variant="outlined" onClick={handleSignOut}>
+              Logout
+            </Button>
+          </>
         ) : (
           <Button color="inherit">Login</Button>
         )}
